@@ -1,7 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
-
+const userRoutes = require('./routes/userRoutes');
 
 // Cargar variables de entorno
 dotenv.config();
@@ -19,6 +19,7 @@ app.use(cors());
 
 const habitRoutes = require("./routes/habitRoutes");
 app.use("/api/habits", habitRoutes);
+app.use('/api/users', userRoutes);
 
 app.get("/", (req, res) => {
   res.send("API prueba");
@@ -27,4 +28,6 @@ app.get("/", (req, res) => {
 app.listen(5000, () => {
   console.log("Servidor en puerto 5000");
 });
+
+
 
