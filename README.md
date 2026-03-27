@@ -154,3 +154,130 @@ routes/
 
 La lógica del backend asegura consistencia en el seguimiento de hábitos y protege la información de los usuarios.
 
+# Backend – Semana 5
+
+## Descripción
+
+En esta fase se implementó un sistema de autenticación y autorización utilizando JSON Web Tokens (JWT) almacenados en cookies. Se protegieron las rutas del backend mediante middleware y se integró el flujo completo de validación de sesión para controlar el acceso a los recursos.
+
+---
+
+## Tecnologías utilizadas
+
+* Node.js
+* Express
+* MongoDB
+* Mongoose
+* JSON Web Token (JWT)
+* bcryptjs
+* cookie-parser
+* cors
+
+---
+
+## Autenticación
+
+El sistema utiliza JWT para manejar sesiones de usuario.
+
+Flujo de autenticación:
+
+1. El usuario inicia sesión con email y contraseña
+2. El backend valida las credenciales
+3. Se genera un JWT firmado
+4. El token se guarda en una cookie httpOnly
+5. El navegador envía automáticamente la cookie en cada request
+
+---
+
+## Middleware de autorización
+
+Se implementó un middleware que protege las rutas del sistema.
+
+Funcionalidad:
+
+* Obtiene el token desde `req.cookies.token`
+* Verifica el token con `jwt.verify`
+* Si es válido, permite continuar
+* Si no existe o es inválido, retorna error 401
+
+Ejemplo de uso:
+
+```js
+router.get("/", authMiddleware, getHabits);
+```
+
+---
+
+## Endpoints implementados
+
+### Autenticación
+
+* POST `/api/auth/login`
+  Genera un JWT y lo guarda en una cookie
+
+* POST `/api/auth/logout`
+  Elimina la cookie del usuario
+
+---
+
+### Hábitos (rutas protegidas)
+
+Todas requieren autenticación mediante middleware:
+
+* GET `/api/habits`
+* POST `/api/habits`
+* PUT `/api/habits/:id`
+* DELETE `/api/habits/:id`
+* PUT `/api/habits/:id/done`
+
+---
+
+## Manejo de cookies
+
+El token se almacena en una cookie con la siguiente configuración:
+
+```js
+res.cookie("token", token, {
+  httpOnly: true,
+  sameSite: "lax",
+  secure: false
+});
+```
+
+Esto evita que el token sea accesible desde JavaScript, mejorando la seguridad.
+
+---
+
+## Seguridad implementada
+
+* Hash de contraseñas con bcrypt
+* Uso de salt automático
+* Tokens firmados con JWT
+* Protección de rutas mediante middleware
+* Cookies httpOnly
+
+---
+
+## Variables de entorno
+
+```env
+JWT_SECRET=tu_secreto
+MONGO_URI=tu_uri
+PORT=5000
+```
+
+---
+
+## Ejecución
+
+Instalar dependencias:
+
+```bash
+npm install
+```
+
+Ejecutar servidor:
+
+```bash
+npm run dev
+```
