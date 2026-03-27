@@ -41,20 +41,22 @@ const login = async (req, res) => {
     { expiresIn: "1d" }
   );
 
-  res.cookie("token", token, {
+    res.cookie("token", token, {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: false
+    });
+
+    res.json({ msg: "Login exitoso" });
+};
+
+const logout = (req, res) => {
+  // Se usan las mismas opciones que en res.cookie para asegurar borrado correcto.
+  res.clearCookie("token", {
     httpOnly: true,
     sameSite: "lax",
     secure: false
   });
-
-  res.json({ msg: "Login exitoso" });
-};
-
-const logout = (req, res) => {
-  console.log("logout ejecutado");
-  console.log("res:", res); 
-
-  res.clearCookie("token");
   res.json({ msg: "Logout exitoso" });
 };
 

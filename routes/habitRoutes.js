@@ -11,11 +11,10 @@ const {
 
 const { authMiddleware } = require("../middleware/authMiddleware");
 
-router.post("/", createHabit);
-router.get("/", getHabits);
-router.put("/:id", updateHabit);
-router.delete("/:id", deleteHabit);
-router.post("/", createHabit);
-router.put('/:id/done', marcarHabitComoDone);
+router.post("/", authMiddleware, createHabit);
+router.get("/", authMiddleware, getHabits);
+router.put("/:id", authMiddleware, updateHabit);
+router.delete("/:id", authMiddleware, deleteHabit);
+router.put('/:id/done', authMiddleware, marcarHabitComoDone);
 
 module.exports = router;

@@ -5,11 +5,6 @@ const { login, logout, register } = require("../controllers/authController");
 
 router.post("/register", register);
 router.post("/login", login);
-console.log("authRoutes cargado");
-
-router.post("/logout", (req, res) => {
-  console.log("logout ruta directa");
-  res.json({ msg: "ok" });
-});
-
+// Debe usar el controlador real para limpiar la cookie de sesion. Aqui me dio problema para limpiar cookies
+router.post("/logout", logout);
 module.exports = router;
