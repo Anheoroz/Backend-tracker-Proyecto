@@ -158,7 +158,7 @@ La lógica del backend asegura consistencia en el seguimiento de hábitos y prot
 
 ## Descripción
 
-En esta fase se implementó un sistema de autenticación y autorización utilizando JSON Web Tokens (JWT) almacenados en cookies. Se protegieron las rutas del backend mediante middleware y se integró el flujo completo de validación de sesión para controlar el acceso a los recursos.
+En esta fase se implementó un sistema de autenticación y autorización utilizando JSON Web Tokens (JWT) almacenados en cookies. Se protegieron las rutas del backend mediante middleware y se integró el flujo completo de validación de sesión para controlar el acceso a los recursos. Con esto quedan completadas las fases de elaboracion de la pagina.
 
 ---
 

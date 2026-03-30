@@ -50,16 +50,17 @@ const marcarHabitComoDone = async (req, res) => {
       const last = new Date(habit.lastCompleted);
 
       const diff = Math.floor(
-        (today - last) / (1000 * 60 * 60 * 24)
+        (today - last) / (1000 * 60 * 60 * 24) 
       );
 
       if (diff === 0) {
         return res.json({ msg: "Ya completado hoy", habit });
       }
 
+      // condicionales para sumar streak, si pasan 2 dias sin marcar, racha se vera reflejada, y al presionar done, reinicia a 1
       if (diff === 1) {
         habit.streak += 1;
-      } else {
+      } else if (diff > 1) {
         habit.streak = 1;
       }
     }
