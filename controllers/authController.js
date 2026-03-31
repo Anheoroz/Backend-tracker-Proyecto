@@ -47,6 +47,7 @@ const { email, password } = req.body;
   httpOnly: true,
   secure: isProduction, 
   sameSite: isProduction ? "none" : "lax",
+  path: "/",
   });
 
   res.json({ msg: "Login exitoso" });
@@ -60,6 +61,7 @@ const isProduction = process.env.NODE_ENV === "production";
     httpOnly: true,
     secure: isProduction,
     sameSite: isProduction ? "none" : "lax",
+    path: "/",
   });
   res.json({ msg: "Logout exitoso" });
 };

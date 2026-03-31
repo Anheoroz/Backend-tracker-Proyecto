@@ -17,8 +17,12 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
+const isProduction = process.env.NODE_ENV === "production";
+
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: isProduction
+    ? "https://frontend-tracker-proyecto-1ysll2pzm-anheorozs-projects.vercel.app/"
+    : "http://localhost:3000",
   credentials: true
 }));
 
@@ -33,9 +37,10 @@ app.get("/", (req, res) => {
   res.send("API prueba");
 });
 
+const PORT = process.env.PORT || 5000;
 
-app.listen(5000, () => {     // servidor en donde corre mi backend
-  console.log("Servidor en puerto 5000");
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en puerto ${PORT}`);
 });
 
 
