@@ -21,7 +21,7 @@ const isProduction = process.env.NODE_ENV === "production";
 
 app.use(cors({
   origin: isProduction
-    ? "https://frontend-tracker-proyecto-1ysll2pzm-anheorozs-projects.vercel.app/"
+    ? "https://frontend-tracker-proyecto-iss4cl8sz-anheorozs-projects.vercel.app"
     : "http://localhost:3000",
   credentials: true
 }));
