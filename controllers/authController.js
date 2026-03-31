@@ -1,4 +1,4 @@
-const User = require("../models/user");
+const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -23,7 +23,7 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
+const { email, password } = req.body;
 
   const user = await User.findOne({ email });
   if (!user) {
@@ -41,21 +41,25 @@ const login = async (req, res) => {
     { expiresIn: "1d" }
   );
 
-    res.cookie("token", token, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: false
-    });
+  const isProduction = process.env.NODE_ENV === "production";
 
-    res.json({ msg: "Login exitoso" });
+  res.cookie("token", token, {
+  httpOnly: true,
+  secure: isProduction, 
+  sameSite: isProduction ? "none" : "lax",
+  });
+
+  res.json({ msg: "Login exitoso" });
 };
 
+
 const logout = (req, res) => {
+const isProduction = process.env.NODE_ENV === "production";
   // Se usan las mismas opciones que en res.cookie para asegurar borrado correcto.
   res.clearCookie("token", {
     httpOnly: true,
-    sameSite: "lax",
-    secure: false
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
   });
   res.json({ msg: "Logout exitoso" });
 };
